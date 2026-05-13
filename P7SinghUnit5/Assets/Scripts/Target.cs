@@ -17,40 +17,43 @@ public class Target : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        targetRb = GetComponent<Rigidbody>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+
+        targetRb = GetComponent<Rigidbody>();
 
         targetRb.AddForce(RandomForce(), ForceMode.Impulse);
         targetRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
 
         transform.position = RandomSpawnPos();
-      
+
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+
     }
 
     private void OnMouseDown()
     {
-        if(gameManager.isGameActive)
+        if (gameManager.isGameActive)
         {
             Destroy(gameObject);
             Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
             gameManager.UpdateScore(pointValue);
-        }       
+        }
+
+       
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
-
-        if(!gameObject.CompareTag("Bad") && gameManager.isGameActive)
+        if (!gameObject.CompareTag("Bad") &&  gameManager.isGameActive)
         {
             gameManager.UpdateLives(-1);
         }
+    }
 
     Vector3 RandomForce()
     {
@@ -59,11 +62,12 @@ public class Target : MonoBehaviour
 
     float RandomTorque()
     {
-        return Random.Range(-maxTorque, maxTorque);
+        return  Random.Range(-maxTorque, maxTorque);
     }
-
     Vector3 RandomSpawnPos()
     {
-       return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
+        return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
     }
-}  
+}
+
+  
