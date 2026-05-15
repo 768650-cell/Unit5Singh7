@@ -19,18 +19,24 @@ public class GameManager : MonoBehaviour
     public bool isGameActive;
     public TextMeshProUGUI livesText;
     private int lives;
+    public GameObject pauseScreen;
+    private bool paused;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-         
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //Check if the user has pressed the P key
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            ChangePaused();
+        }
     }
 
     IEnumerator SpawnTarget()
@@ -86,5 +92,20 @@ public class GameManager : MonoBehaviour
         titleScreen.gameObject.SetActive(false);
     }
 
-   
+    void ChangePaused()  
+    { 
+        if (!paused) 
+        { 
+            paused = true; 
+            pauseScreen.SetActive(true); 
+            Time.timeScale = 0; 
+        } 
+        else 
+        {
+            paused = false;
+            pauseScreen.SetActive(false);
+                
+                
+        } 
+    }
 }
